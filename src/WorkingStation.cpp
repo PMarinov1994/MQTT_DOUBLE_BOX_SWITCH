@@ -80,34 +80,17 @@ void CWorkingStation::Work()
     {
         Print("WIFI DOWN! Reconnecting");
 
-        unsigned long ulRestartTime = ELAPSED_SECONDS + WAIT_BEFORE_RESTART_SEC;
-
         digitalWrite(BUILD_IN_LED, BUILD_IN_LED_OFF);
         digitalWrite(MQTT_CONN_LED, HIGH);
 
-        while (WL_CONNECTED != WiFi.status())
-        {
-            Print(".");
-            if (ulRestartTime < ELAPSED_SECONDS)
-            {
-                Println("Failed to reconned to WIFI for 5 mins. Calling ESP.reset()");
-                SERIAL_END;
-                ESP.restart();
-            }
-
-            // Try every 1 second
-            delay(1000);
-        }
+        WIFI_WAIT_FOR_CONNECTION
     }
     else if (!m_client.connected())
     {
+        Println("Client is disconnected. Will try to reconnect in a moment.");
+
         digitalWrite(BUILD_IN_LED, BUILD_IN_LED_OFF);
         digitalWrite(MQTT_CONN_LED, HIGH);
-        Println("Client is disconnected. Will try to reconnect in a moment.");
-        
-        int mqttState = m_client.state();
-        Print("The Mqtt state was: ");
-        Println(mqttState);
 
         this->ReconnectMQTT();
     }
@@ -192,20 +175,8 @@ void CWorkingStation::ConnectToWifi()
 
     WiFi.begin(m_ssid, m_psk);
 
-    unsigned long ulRestartTime = ELAPSED_SECONDS + WAIT_BEFORE_RESTART_SEC;
     Print("Connecting");
-    while (WiFi.status() != WL_CONNECTED)
-    {
-        delay(500);
-        Print(".");
-
-        if (ulRestartTime < ELAPSED_SECONDS)
-        {
-            Println("Failed to reconnect to WIFI for 5 mins. Calling ESP.restart()");
-            SERIAL_END;
-            ESP.restart();
-        }
-    }
+    WIFI_WAIT_FOR_CONNECTION
 
     Println("");
     Print("Connected, IP address: ");

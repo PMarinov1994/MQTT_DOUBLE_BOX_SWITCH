@@ -40,6 +40,16 @@ const char outside_switch_two_state_topic[] = "outside_box_one/switch_two";
 
 #define ELAPSED_SECONDS (millis() / 1000)
 
+#define WIFI_WAIT_FOR_CONNECTION unsigned \
+long ulRestartTime = ELAPSED_SECONDS + WAIT_BEFORE_RESTART_SEC; \
+while (WiFi.status() != WL_CONNECTED) \
+{\
+    Print(".");\
+    if (ulRestartTime < ELAPSED_SECONDS)\
+        { Println("Failed to reconnect to WIFI for 5 mins. Calling ESP.restart()"); SERIAL_END; ESP.restart(); } \
+    delay(1000); \
+}
+
 // Real Global Definitions
 #define PRINT_LINES 0
 
