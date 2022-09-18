@@ -1,0 +1,46 @@
+<HTML>
+	<HEAD>
+	<META NAME="GENERATOR" Content="Microsoft Visual Studio">
+	<TITLE>ESP8266 Wi-fi Configuration</TITLE>
+	</HEAD>
+
+	<STYLE>
+		body {background-color: powderblue; text-align:center; font-size: 200%%; width: 80%%; margin-left: 10%%;}
+		.ctrl {padding: 1%%; width: 100%%;}
+		.grid {width: 100%%;}
+		.text {text-align: right;}
+	</STYLE>
+
+	<BODY>
+
+		<h1>ESP8266 Wi-fi Configuration</h1>
+
+		<form action="confirm.html" method="post">
+            <table class="grid">
+                <col width="10%%">
+                <col width="90%%">
+                <tr>
+                    <td><p class="text">SSID:</p></td>
+                    <td><input class="ctrl" type="text" name="ssid" value="%s"></td>
+                </tr>
+                <tr>
+                    <td><p class="text">PSK:</p></td>
+                    <td><input class="ctrl" type="text" name="psk" value="%s"></td>
+                </tr>
+                <tr>
+                    <td><p class="text">MQTT IP:</p></td>
+                    <td><input class="ctrl" type="text" name="mqtt" value="%s"></td>
+                </tr>
+                <tr>
+                    <td><p class="text">MQTT PORT:</p></td>
+                    <td><input class="ctrl" type="text" name="mqttPort" value="%i"></td>
+                </tr>
+                <tr>
+                    <td />
+                    <td><input class="ctrl" type="submit" value="submit"></td>
+                </tr>
+            </table>
+		</form>
+
+	</BODY>
+</HTML>

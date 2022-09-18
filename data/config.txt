@@ -1,0 +1,1 @@
+ssid=[ssid]&psk=[psk]&mqtt=192.168.200.105&mqttPort=1883
